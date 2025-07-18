@@ -1,0 +1,125 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(var(--vh, 1vh) * 100);
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-height: 100%;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    max-width: min(100vw, 100%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.game-settings {
+    display: none;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.setting-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.setting-group label {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.setting-group input {
+    width: 50px;
+    padding: 5px;
+    text-align: center;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+#mines-count,
+#timer {
+    font-weight: bold;
+}
+
+canvas {
+    border: 0.3vmin solid #333;
+    background-color: #ddd;
+    cursor: pointer;
+    margin-bottom: 15px;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+canvas:focus {
+    outline: none;
+}
+
+button {
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#rows,
+#cols,
+#difficulty {
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    border: 1px solid #333;
+}
+
+
+@media (orientation: landscape) {
+    .game-container {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    canvas {
+        width: min(60vh, 80vw);
+    }
+}
+
+@media (orientation: portrait) {
+    .game-container {
+        padding: 10px;
+        border-radius: 5px;
+        width: calc(95vw - 10px);
+    }
+
+    canvas {
+        width: 90vw;
+    }
+}
