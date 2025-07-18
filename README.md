@@ -15,3 +15,6 @@ The goal is to reveal all cells that **do not** contain mines.
 - If a revealed cell shows nothing (meaning 0 mines around it), the game will automatically reveal adjacent cells until numbered cells are found.
 - Revealing a cell with a mine ends the game.
 - Reveal all **safe** cells to win.
+
+\
+https://armcpro.github.io/minesweeper/
