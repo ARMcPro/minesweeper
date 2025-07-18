@@ -23,7 +23,6 @@ const rowsInput = document.getElementById('rows');
 const colsInput = document.getElementById('cols');
 const container = document.querySelector('.game-container');
 const difficultySelect = document.getElementById('difficulty');
-const difficultyClassSelect = document.getElementById('difficulty-option');
 
 //const minesInput = document.getElementById('mines');
 
@@ -98,7 +97,7 @@ function resizeCanvasToDisplaySize() {
     if (canvas.width !== width * ratio || canvas.height !== height * ratio) {
         canvas.width = width * ratio;
         canvas.height = height * ratio;
-        ctx.setTransform(ratio, 0, 0, ratio, 0, 0); // scale context
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
     }
 }
 
@@ -107,7 +106,6 @@ function drawBoard() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.lineWidth = 1 / (window.devicePixelRatio || 1);
 
-    console.log(wrong);
     for (let row = 0; row < ROWS; row++) {
         for (let col = 0; col < COLS; col++) {
             const x = col * CELL_SIZE;
@@ -143,9 +141,10 @@ function drawBoard() {
                     // Flag
                     ctx.fillStyle = '#f00';
                     ctx.beginPath();
-                    ctx.moveTo(x + 5, y + 5);
-                    ctx.lineTo(x + CELL_SIZE - 5, y + CELL_SIZE / 2);
-                    ctx.lineTo(x + 5, y + CELL_SIZE - 5);
+                    const padding = CELL_SIZE * 0.15;
+                    ctx.moveTo(x + padding, y + padding);
+                    ctx.lineTo(x + CELL_SIZE - padding, y + CELL_SIZE / 2);
+                    ctx.lineTo(x + padding, y + CELL_SIZE - padding);
                     ctx.fill();
                 }
             }
@@ -190,6 +189,14 @@ function revealCell(row, col) {
         if (timerInterval) {
             clearInterval(timerInterval);
         }
+
+        rowsInput.parentElement.parentElement.style.display = 'flex';
+        if (difficultySelect.value === 'custom') {
+            rowsInput.parentElement.style.display = 'flex';
+            colsInput.parentElement.style.display = 'flex';
+            resizeCanvas();
+        }
+
         setTimeout(() => alert('Game Over! You hit a mine.'), 10);
     } else if (board[row][col] === 0) {
         for (let r = Math.max(0, row - 1); r <= Math.min(ROWS - 1, row + 1); r++) {
@@ -358,7 +365,7 @@ window.addEventListener('load', initGame);
 
 function resizeCanvas() {
     const maxWidth = window.innerWidth * 0.9;
-    const maxHeight = window.innerHeight * 0.8;
+    const maxHeight = window.innerHeight * 0.78;
 
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -366,7 +373,7 @@ function resizeCanvas() {
     CELL_SIZE = Math.min(
         Math.floor(maxWidth / COLS),
         Math.floor(maxHeight / ROWS),
-        40 // Maximum cell size
+        50 // Maximum cell size
     );
 
     canvas.width = COLS * CELL_SIZE;
@@ -430,6 +437,7 @@ function updateCustomInputsVisibility() {
     }
 }
 
+
 difficultySelect.addEventListener('change', () => {
     const difficulty = difficultySelect.value;
     const mobile = window.innerHeight > window.innerWidth;
@@ -453,6 +461,5 @@ difficultySelect.addEventListener('change', () => {
     }
     initGame();
 });
-
 
 window.addEventListener('resize', resizeCanvas);
